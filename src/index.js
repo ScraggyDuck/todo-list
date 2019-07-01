@@ -8,7 +8,7 @@ import "./styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import TaskForm from "./components/TaskForm";
-import Control from "./components/Control";
+import TaskControl from "./components/TaskControl";
 import TaskList from "./components/TaskList";
 
 class App extends Component {
@@ -234,7 +234,7 @@ class App extends Component {
                 >
                   Thêm công việc
                 </Button>
-                <Control onSearch={this.onSearch} onSort={this.onSort} />
+                <TaskControl onSearch={this.onSearch} onSort={this.onSort} />
                 <TaskList
                   tasks={tasks}
                   onUpdateStatus={this.onUpdateStatus}

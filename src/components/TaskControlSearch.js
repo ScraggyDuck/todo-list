@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 
-export default class Search extends Component {
+export default class TaskControlSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {

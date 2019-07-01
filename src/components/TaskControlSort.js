@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Dropdown } from "react-bootstrap";
 
-export default class Sort extends Component {
+export default class TaskControlSort extends Component {
   constructor(props) {
     super(props);
     this.state = {
