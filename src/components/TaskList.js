@@ -27,7 +27,6 @@ class TaskList extends Component {
     });
   };
   render() {
-    console.log(this.props.tasks);
     const { tasks, onUpdateStatus, onDelete, onUpdate } = this.props;
     const { filterName, filterLevel, filterStatus } = this.state;
     const elmTasks = tasks.map((task, index) => (
@@ -97,7 +96,6 @@ class TaskList extends Component {
 }
 
 const mapStateToProps = state => ({ tasks: state.tasks });
-
 export default connect(
   mapStateToProps,
   null

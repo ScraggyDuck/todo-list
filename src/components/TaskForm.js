@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Card, Form, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import { addTask } from "../actions/index";
 
-export default class TaskForm extends Component {
+class TaskForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +21,7 @@ export default class TaskForm extends Component {
     });
   };
 
-  onSubmit = event => {
+  onHandleSubmit = event => {
     event.preventDefault();
     let { name } = this.state;
     name = name.trim();
@@ -28,7 +30,8 @@ export default class TaskForm extends Component {
       this.props.onCloseForm();
       return;
     }
-    this.props.onSubmit(this.state);
+    this.props.addToTask(this.state);
+    this.onCloseForm();
   };
 
   onCloseForm = () => {
@@ -69,7 +72,7 @@ export default class TaskForm extends Component {
           {this.state.id !== "" ? "Cập nhật công việc" : "Thêm công việc"}
         </Card.Header>
         <Card.Body>
-          <Form onSubmit={this.onSubmit}>
+          <Form onSubmit={this.onHandleSubmit}>
             <Form.Group controlId="TaskInput">
               <Form.Label>
                 <b>Tên:</b>
@@ -110,3 +113,15 @@ export default class TaskForm extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => ({
+  addToTask: task => dispatch(addTask(task))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskForm);
