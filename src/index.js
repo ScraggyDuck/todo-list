@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import myReducer from "./reducers/index";
+
 import { Container, Row, Col, Button } from "react-bootstrap";
 import uniqid from "uniqid";
 
@@ -10,6 +15,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import TaskForm from "./components/TaskForm";
 import TaskControl from "./components/TaskControl";
 import TaskList from "./components/TaskList";
+
+let store = createStore(myReducer);
 
 class App extends Component {
   constructor() {
@@ -210,43 +217,45 @@ class App extends Component {
       });
     }
     return (
-      <div className="App">
-        <Container className="mt-3">
-          <h1 className="text-center mb-3">Quản lí công việc</h1>
-          <Row>
-            {isDisplayForm ? (
-              <Col md={4}>
-                <TaskForm
-                  onCloseForm={this.onCloseForm}
-                  onSubmit={this.onSubmit}
-                  task={taskEditting}
-                />
+      <Provider store={store}>
+        <div className="App">
+          <Container className="mt-3">
+            <h1 className="text-center mb-3">Quản lí công việc</h1>
+            <Row>
+              {isDisplayForm ? (
+                <Col md={4}>
+                  <TaskForm
+                    onCloseForm={this.onCloseForm}
+                    onSubmit={this.onSubmit}
+                    task={taskEditting}
+                  />
+                </Col>
+              ) : (
+                ""
+              )}
+              <Col md={isDisplayForm ? 8 : 12}>
+                <div className="MainTask p-4 mb-4">
+                  <Button
+                    onClick={this.onToggleForm}
+                    variant="primary"
+                    className="d-flex mb-3"
+                  >
+                    Thêm công việc
+                  </Button>
+                  <TaskControl onSearch={this.onSearch} onSort={this.onSort} />
+                  <TaskList
+                    // tasks={tasks}
+                    onUpdateStatus={this.onUpdateStatus}
+                    onDelete={this.onDelete}
+                    onUpdate={this.onUpdate}
+                    onFilter={this.onFilter}
+                  />
+                </div>
               </Col>
-            ) : (
-              ""
-            )}
-            <Col md={isDisplayForm ? 8 : 12}>
-              <div className="MainTask p-4 mb-4">
-                <Button
-                  onClick={this.onToggleForm}
-                  variant="primary"
-                  className="d-flex mb-3"
-                >
-                  Thêm công việc
-                </Button>
-                <TaskControl onSearch={this.onSearch} onSort={this.onSort} />
-                <TaskList
-                  tasks={tasks}
-                  onUpdateStatus={this.onUpdateStatus}
-                  onDelete={this.onDelete}
-                  onUpdate={this.onUpdate}
-                  onFilter={this.onFilter}
-                />
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+            </Row>
+          </Container>
+        </div>
+      </Provider>
     );
   }
 }

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import { Table, Form } from "react-bootstrap";
 import TaskItem from "./TaskItem";
 
-export default class TaskList extends Component {
+class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +27,7 @@ export default class TaskList extends Component {
     });
   };
   render() {
+    console.log(this.props.tasks);
     const { tasks, onUpdateStatus, onDelete, onUpdate } = this.props;
     const { filterName, filterLevel, filterStatus } = this.state;
     const elmTasks = tasks.map((task, index) => (
@@ -92,3 +95,10 @@ export default class TaskList extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({ tasks: state.tasks });
+
+export default connect(
+  mapStateToProps,
+  null
+)(TaskList);
