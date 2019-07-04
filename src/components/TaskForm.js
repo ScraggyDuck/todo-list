@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { addTask } from "../actions/index";
+import { addTask, onCloseForm } from "../actions/index";
 
 class TaskForm extends Component {
   constructor(props) {
@@ -118,7 +118,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addToTask: task => dispatch(addTask(task))
+  addToTask: task => dispatch(addTask(task)),
+  onCloseForm: () => dispatch(onCloseForm())
 });
 
 export default connect(
