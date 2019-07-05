@@ -25,3 +25,8 @@ export const onUpdateStatus = id => ({
   type: types.UPDATE_STATUS_TASK,
   id
 });
+
+export const onDelete = id => ({
+  type: types.DELETE_TASK,
+  id
+});

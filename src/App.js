@@ -193,11 +193,7 @@ class App extends Component {
                   Thêm công việc
                 </Button>
                 <TaskControl onSearch={this.onSearch} onSort={this.onSort} />
-                <TaskList
-                  onDelete={this.onDelete}
-                  onUpdate={this.onUpdate}
-                  onFilter={this.onFilter}
-                />
+                <TaskList onUpdate={this.onUpdate} onFilter={this.onFilter} />
               </div>
             </Col>
           </Row>

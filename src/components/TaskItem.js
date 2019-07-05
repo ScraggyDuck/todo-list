@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Badge } from "react-bootstrap";
 
 import { connect } from "react-redux";
-import { onUpdateStatus } from "../actions/index";
+import { onUpdateStatus, onDelete } from "../actions/index";
 
 class TaskItem extends Component {
   onUpdateStatus = () => {
@@ -52,7 +52,8 @@ class TaskItem extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onUpdateStatus: id => dispatch(onUpdateStatus(id))
+  onUpdateStatus: id => dispatch(onUpdateStatus(id)),
+  onDelete: id => dispatch(onDelete(id))
 });
 
 export default connect(

@@ -13,13 +13,13 @@ const data = JSON.parse(localStorage.getItem("tasks"));
 var initialState = data ? data : [];
 
 const tasks = (state = initialState, action) => {
+  let index = -1;
   switch (action.type) {
     case types.LIST_ALL:
       return state;
     case types.ADD_TASK:
       let { task } = action;
       let tasks = [...state];
-      console.log(tasks, state);
       if (task.id === "") {
         task.id = uniqid();
         task.isCompleted = false;
@@ -34,16 +34,24 @@ const tasks = (state = initialState, action) => {
       localStorage.setItem("tasks", JSON.stringify(tasks));
       return tasks;
     case types.UPDATE_STATUS_TASK:
-      let index = findIndex(state, action.id);
-      let taskItems = [...state];
+      index = findIndex(state, action.id);
+      let tasksUpdate = [...state];
       if (index !== -1) {
-        taskItems[index] = {
-          ...taskItems[index],
-          isCompleted: !taskItems[index].isCompleted
+        tasksUpdate[index] = {
+          ...tasksUpdate[index],
+          isCompleted: !tasksUpdate[index].isCompleted
         };
-        localStorage.setItem("tasks", JSON.stringify(taskItems));
+        localStorage.setItem("tasks", JSON.stringify(tasksUpdate));
       }
-      return taskItems;
+      return tasksUpdate;
+    case types.DELETE_TASK:
+      index = findIndex(state, action.id);
+      let tasksDelete = [...state];
+      if (index !== -1) {
+        tasksDelete.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(tasksDelete));
+      }
+      return tasksDelete;
     default:
       return state;
   }

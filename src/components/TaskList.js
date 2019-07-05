@@ -26,6 +26,7 @@ class TaskList extends Component {
       [name]: value
     });
   };
+
   render() {
     const { tasks } = this.props;
     const { filterName, filterLevel, filterStatus } = this.state;
