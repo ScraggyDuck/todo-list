@@ -27,17 +27,10 @@ class TaskList extends Component {
     });
   };
   render() {
-    const { tasks, onUpdateStatus, onDelete, onUpdate } = this.props;
+    const { tasks } = this.props;
     const { filterName, filterLevel, filterStatus } = this.state;
     const elmTasks = tasks.map((task, index) => (
-      <TaskItem
-        key={task.id}
-        index={index}
-        task={task}
-        onUpdateStatus={onUpdateStatus}
-        onDelete={onDelete}
-        onUpdate={onUpdate}
-      />
+      <TaskItem key={task.id} index={index} task={task} />
     ));
     return (
       <Table bordered hover>

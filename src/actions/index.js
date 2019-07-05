@@ -20,3 +20,8 @@ export const onCloseForm = () => ({
 export const onShowForm = () => ({
   type: types.OPEN_FORM
 });
+
+export const onUpdateStatus = id => ({
+  type: types.UPDATE_STATUS_TASK,
+  id
+});

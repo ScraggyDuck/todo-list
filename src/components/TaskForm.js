@@ -114,7 +114,7 @@ class TaskForm extends Component {
   }
 }
 const mapStateToProps = state => {
-  return {};
+  return state;
 };
 
 const mapDispatchToProps = dispatch => ({

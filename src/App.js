@@ -42,18 +42,18 @@ class App extends Component {
     this.props.onToggleForm();
   };
 
-  onCloseForm = () => {
-    this.setState({
-      isDisplayForm: false,
-      taskEditting: null
-    });
-  };
+  // onCloseForm = () => {
+  //   this.setState({
+  //     isDisplayForm: false,
+  //     taskEditting: null
+  //   });
+  // };
 
-  onShowForm = () => {
-    this.setState({
-      isDisplayForm: true
-    });
-  };
+  // onShowForm = () => {
+  //   this.setState({
+  //     isDisplayForm: true
+  //   });
+  // };
 
   // onSubmit = task => {
   //   const { tasks } = this.state;
@@ -73,18 +73,6 @@ class App extends Component {
   //   });
   //   localStorage.setItem("tasks", JSON.stringify(tasks));
   //   this.onCloseForm();
-  // };
-
-  // onUpdateStatus = id => {
-  //   let { tasks } = this.state;
-  //   const index = this.findIndex(id);
-  //   if (index !== -1) {
-  //     tasks[index].isCompleted = !tasks[index].isCompleted;
-  //     this.setState({
-  //       tasks: tasks
-  //     });
-  //     localStorage.setItem("tasks", JSON.stringify(tasks));
-  //   }
   // };
 
   // onDelete = id => {
@@ -109,15 +97,6 @@ class App extends Component {
   //     });
   //     this.onShowForm();
   //   }
-  // };
-
-  // findIndex = id => {
-  //   const { tasks } = this.state;
-  //   let result = -1;
-  //   tasks.forEach((task, index) => {
-  //     if (task.id === id) result = index;
-  //   });
-  //   return result;
   // };
 
   // onFilter = (filterName, filterLevel, filterStatus) => {
@@ -146,7 +125,7 @@ class App extends Component {
   // };
 
   render() {
-    let { taskEditting, filter, keyword, sort } = this.state;
+    // let { taskEditting, filter, keyword, sort } = this.state;
 
     let { isDisplayForm } = this.props;
     // if (filter) {
@@ -199,7 +178,7 @@ class App extends Component {
           <Row>
             {isDisplayForm ? (
               <Col md={4}>
-                <TaskForm task={taskEditting} />
+                <TaskForm />
               </Col>
             ) : (
               ""
@@ -215,7 +194,6 @@ class App extends Component {
                 </Button>
                 <TaskControl onSearch={this.onSearch} onSort={this.onSort} />
                 <TaskList
-                  onUpdateStatus={this.onUpdateStatus}
                   onDelete={this.onDelete}
                   onUpdate={this.onUpdate}
                   onFilter={this.onFilter}

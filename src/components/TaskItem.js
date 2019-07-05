@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Button, Badge } from "react-bootstrap";
 
-export default class TaskItem extends Component {
+import { connect } from "react-redux";
+import { onUpdateStatus } from "../actions/index";
+
+class TaskItem extends Component {
   onUpdateStatus = () => {
     this.props.onUpdateStatus(this.props.task.id);
   };
@@ -47,3 +50,12 @@ export default class TaskItem extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  onUpdateStatus: id => dispatch(onUpdateStatus(id))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(TaskItem);
