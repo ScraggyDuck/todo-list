@@ -5,15 +5,14 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import TaskForm from "./components/TaskForm";
 import TaskControl from "./components/TaskControl";
 import TaskList from "./components/TaskList";
+
 import { connect } from "react-redux";
-import { onToggleForm } from "./actions/index";
+import { onToggleForm, onUpdate, onShowForm } from "./actions/index";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isDisplayForm: false,
-      taskEditting: null,
       filter: {
         name: "",
         level: -1,
@@ -28,76 +27,15 @@ class App extends Component {
   }
 
   onToggleForm = () => {
-    // if (this.state.taskEditting) {
-    //   this.setState({
-    //     isDisplayForm: true,
-    //     taskEditting: null
-    //   });
-    // } else {
-    //   this.setState({
-    //     isDisplayForm: !this.state.isDisplayForm,
-    //     taskEditting: null
-    //   });
-    // }
-    this.props.onToggleForm();
+    this.props.onUpdate({
+      id: "",
+      name: "",
+      level: 1,
+      isCompleted: false
+    });
+    if (this.props.taskEditting) this.props.onShowForm();
+    else this.props.onToggleForm();
   };
-
-  // onCloseForm = () => {
-  //   this.setState({
-  //     isDisplayForm: false,
-  //     taskEditting: null
-  //   });
-  // };
-
-  // onShowForm = () => {
-  //   this.setState({
-  //     isDisplayForm: true
-  //   });
-  // };
-
-  // onSubmit = task => {
-  //   const { tasks } = this.state;
-  //   if (task.id === "") {
-  //     task.id = uniqid();
-  //     task.isCompleted = false;
-  //     tasks.push(task);
-  //   } else {
-  //     const index = this.findIndex(task.id);
-  //     task.isCompleted = tasks[index].isCompleted;
-  //     tasks[index] = task;
-  //     console.log(task);
-  //   }
-  //   this.setState({
-  //     tasks: tasks,
-  //     taskEditting: null
-  //   });
-  //   localStorage.setItem("tasks", JSON.stringify(tasks));
-  //   this.onCloseForm();
-  // };
-
-  // onDelete = id => {
-  //   let { tasks } = this.state;
-  //   const index = this.findIndex(id);
-  //   if (index !== -1) {
-  //     tasks.splice(index, 1);
-  //     this.setState({
-  //       tasks: tasks
-  //     });
-  //     localStorage.setItem("tasks", JSON.stringify(tasks));
-  //   }
-  //   this.onCloseForm();
-  // };
-
-  // onUpdate = id => {
-  //   const { tasks } = this.state;
-  //   const index = this.findIndex(id);
-  //   if (index !== -1) {
-  //     this.setState({
-  //       taskEditting: tasks[index]
-  //     });
-  //     this.onShowForm();
-  //   }
-  // };
 
   // onFilter = (filterName, filterLevel, filterStatus) => {
   //   this.setState({
@@ -125,8 +63,6 @@ class App extends Component {
   // };
 
   render() {
-    // let { taskEditting, filter, keyword, sort } = this.state;
-
     let { isDisplayForm } = this.props;
     // if (filter) {
     //   if (filter.name) {
@@ -178,7 +114,8 @@ class App extends Component {
           <Row>
             {isDisplayForm ? (
               <Col md={4}>
-                <TaskForm />
+                {" "}
+                <TaskForm />{" "}
               </Col>
             ) : (
               ""
@@ -192,8 +129,8 @@ class App extends Component {
                 >
                   Thêm công việc
                 </Button>
-                <TaskControl onSearch={this.onSearch} onSort={this.onSort} />
-                <TaskList onUpdate={this.onUpdate} onFilter={this.onFilter} />
+                <TaskControl />
+                <TaskList />
               </div>
             </Col>
           </Row>
@@ -204,11 +141,14 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  isDisplayForm: state.isDisplayForm
+  isDisplayForm: state.isDisplayForm,
+  taskEditting: state.taskEditting
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  onToggleForm: () => dispatch(onToggleForm())
+  onToggleForm: () => dispatch(onToggleForm()),
+  onUpdate: task => dispatch(onUpdate(task)),
+  onShowForm: () => dispatch(onShowForm())
 });
 
 export default connect(

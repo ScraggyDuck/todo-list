@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { addTask, onCloseForm } from "../actions/index";
+import { saveTask, onCloseForm, onUpdate } from "../actions/index";
 
 class TaskForm extends Component {
   constructor(props) {
@@ -9,9 +9,11 @@ class TaskForm extends Component {
     this.state = {
       id: "",
       name: "",
-      level: 1
+      level: 1,
+      isCompleted: false
     };
   }
+
   onChange = event => {
     const target = event.target;
     const name = target.name;
@@ -27,14 +29,20 @@ class TaskForm extends Component {
     name = name.trim();
     if (name === "") {
       alert("Thông tin rỗng....");
-      this.props.onCloseForm();
+      this.onCloseForm();
       return;
     }
-    this.props.addToTask(this.state);
+    this.props.saveToTask(this.state);
     this.onCloseForm();
   };
 
   onCloseForm = () => {
+    this.props.onUpdate({
+      id: "",
+      name: "",
+      level: 1,
+      isCompleted: false
+    });
     this.props.onCloseForm();
   };
 
@@ -44,7 +52,15 @@ class TaskForm extends Component {
       this.setState({
         id: task.id,
         name: task.name,
-        level: task.level
+        level: task.level,
+        isCompleted: task.isCompleted
+      });
+    } else {
+      this.setState({
+        id: "",
+        name: "",
+        level: 1,
+        isCompleted: false
       });
     }
   }
@@ -60,7 +76,8 @@ class TaskForm extends Component {
       this.setState({
         id: "",
         name: "",
-        level: 1
+        level: 1,
+        isCompleted: false
       });
     }
   }
@@ -114,12 +131,13 @@ class TaskForm extends Component {
   }
 }
 const mapStateToProps = state => {
-  return state;
+  return { task: state.taskEditting };
 };
 
 const mapDispatchToProps = dispatch => ({
-  addToTask: task => dispatch(addTask(task)),
-  onCloseForm: () => dispatch(onCloseForm())
+  saveToTask: task => dispatch(saveTask(task)),
+  onCloseForm: () => dispatch(onCloseForm()),
+  onUpdate: task => dispatch(onUpdate(task))
 });
 
 export default connect(

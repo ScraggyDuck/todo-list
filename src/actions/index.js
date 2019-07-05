@@ -4,8 +4,8 @@ export const listAll = () => ({
   type: types.LIST_ALL
 });
 
-export const addTask = task => ({
-  type: types.ADD_TASK,
+export const saveTask = task => ({
+  type: types.SAVE_TASK,
   task
 });
 
@@ -29,4 +29,9 @@ export const onUpdateStatus = id => ({
 export const onDelete = id => ({
   type: types.DELETE_TASK,
   id
+});
+
+export const onUpdate = task => ({
+  type: types.UPDATE_TASK,
+  task
 });

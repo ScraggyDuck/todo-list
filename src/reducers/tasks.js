@@ -17,20 +17,16 @@ const tasks = (state = initialState, action) => {
   switch (action.type) {
     case types.LIST_ALL:
       return state;
-    case types.ADD_TASK:
+    case types.SAVE_TASK:
       let { task } = action;
       let tasks = [...state];
       if (task.id === "") {
         task.id = uniqid();
-        task.isCompleted = false;
         tasks.push(task);
+      } else {
+        index = findIndex(state, task.id);
+        tasks[index] = task;
       }
-
-      // // } else {
-      // //   const index = this.findIndex(task.id);
-      // //   task.isCompleted = tasks[index].isCompleted;
-      // //   tasks[index] = task;
-      // // }
       localStorage.setItem("tasks", JSON.stringify(tasks));
       return tasks;
     case types.UPDATE_STATUS_TASK:

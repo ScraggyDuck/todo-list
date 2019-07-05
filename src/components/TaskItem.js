@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { Button, Badge } from "react-bootstrap";
 
 import { connect } from "react-redux";
-import { onUpdateStatus, onDelete } from "../actions/index";
+import {
+  onUpdateStatus,
+  onDelete,
+  onUpdate,
+  onShowForm,
+  onCloseForm
+} from "../actions/index";
 
 class TaskItem extends Component {
   onUpdateStatus = () => {
@@ -11,10 +17,12 @@ class TaskItem extends Component {
 
   onDelete = () => {
     this.props.onDelete(this.props.task.id);
+    this.props.onCloseForm();
   };
 
   onUpdate = () => {
-    this.props.onUpdate(this.props.task.id);
+    this.props.onShowForm();
+    this.props.onUpdate(this.props.task);
   };
 
   render() {
@@ -53,7 +61,10 @@ class TaskItem extends Component {
 
 const mapDispatchToProps = dispatch => ({
   onUpdateStatus: id => dispatch(onUpdateStatus(id)),
-  onDelete: id => dispatch(onDelete(id))
+  onDelete: id => dispatch(onDelete(id)),
+  onUpdate: task => dispatch(onUpdate(task)),
+  onShowForm: () => dispatch(onShowForm()),
+  onCloseForm: () => dispatch(onCloseForm())
 });
 
 export default connect(
