@@ -17,19 +17,40 @@ class TaskList extends Component {
     const target = event.target;
     const name = target.name;
     const value = target.value;
-    this.props.onFilter(
-      name === "filterName" ? value : this.state.filterName,
-      name === "filterLevel" ? value : this.state.filterLevel,
-      name === "filterStatus" ? value : this.state.filterStatus
-    );
-    this.setState({
-      [name]: value
-    });
+    if (name === "filterLevel" || name === "filterStatus") {
+      this.setState({
+        [name]: parseInt(value, 10)
+      });
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
   };
 
   render() {
-    const { tasks } = this.props;
+    let { tasks } = this.props;
     const { filterName, filterLevel, filterStatus } = this.state;
+
+    //Filter
+    if (filterName) {
+      tasks = tasks.filter(task => {
+        return task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1;
+      });
+    }
+    if (filterLevel !== -1) {
+      tasks = tasks.filter(task => {
+        return task.level === parseInt(filterLevel, 10);
+      });
+    }
+    if (filterStatus !== -1) {
+      tasks = tasks.filter(task => {
+        return (
+          task.isCompleted === (parseInt(filterStatus, 10) === 1 ? true : false)
+        );
+      });
+    }
+
     const elmTasks = tasks.map((task, index) => (
       <TaskItem key={task.id} index={index} task={task} />
     ));
@@ -89,7 +110,10 @@ class TaskList extends Component {
   }
 }
 
-const mapStateToProps = state => ({ tasks: state.tasks });
+const mapStateToProps = state => ({
+  tasks: state.tasks
+});
+
 export default connect(
   mapStateToProps,
   null
