@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { Dropdown } from "react-bootstrap";
 import { connect } from "react-redux";
 import { onSort } from "../actions/index";
@@ -11,6 +12,7 @@ class TaskControlSort extends Component {
       sortValue: 1
     };
   }
+
   onClick = (sortBy, sortValue) => {
     const sort = { sortBy, sortValue };
     this.props.onSort(sortBy, sortValue);
@@ -24,7 +26,6 @@ class TaskControlSort extends Component {
         <Dropdown.Toggle variant="primary" id="dropdown-basic">
           Sắp xếp&nbsp;
         </Dropdown.Toggle>
-
         <Dropdown.Menu>
           <Dropdown.Item onClick={() => this.onClick("name", 1)}>
             Từ A-Z &nbsp;

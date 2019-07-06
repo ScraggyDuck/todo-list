@@ -31,32 +31,22 @@ class TaskList extends Component {
   render() {
     let { tasks } = this.props;
     const { filterName, filterLevel, filterStatus } = this.state;
-
     //Filter
-    if (filterName) {
-      tasks = tasks.filter(task => {
-        return task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1;
-      });
-    }
-    if (filterLevel !== -1) {
-      tasks = tasks.filter(task => {
-        return task.level === parseInt(filterLevel, 10);
-      });
-    }
-    if (filterStatus !== -1) {
-      tasks = tasks.filter(task => {
-        return (
+    tasks = tasks.filter(
+      task => task.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+    );
+    if (filterLevel !== -1)
+      tasks = tasks.filter(task => task.level === parseInt(filterLevel, 10));
+    if (filterStatus !== -1)
+      tasks = tasks.filter(
+        task =>
           task.isCompleted === (parseInt(filterStatus, 10) === 1 ? true : false)
-        );
-      });
-    }
+      );
 
     //search
-    if (this.props.keyword) {
-      tasks = tasks.filter(task => {
-        return task.name.toLowerCase().indexOf(this.props.keyword) !== -1;
-      });
-    }
+    tasks = tasks.filter(
+      task => task.name.toLowerCase().indexOf(this.props.keyword) !== -1
+    );
 
     //sort
     const { sort } = this.props;

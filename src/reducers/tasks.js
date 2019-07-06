@@ -1,13 +1,6 @@
 import * as types from "../constants/actionTypes";
 import uniqid from "uniqid";
-
-var findIndex = (taskItems, id) => {
-  let result = -1;
-  taskItems.forEach((task, index) => {
-    if (task.id === id) result = index;
-  });
-  return result;
-};
+import { findIndex } from "lodash";
 
 const data = JSON.parse(localStorage.getItem("tasks"));
 var initialState = data ? data : [];
@@ -24,13 +17,13 @@ const tasks = (state = initialState, action) => {
         task.id = uniqid();
         tasks.push(task);
       } else {
-        index = findIndex(state, task.id);
+        index = findIndex(state, o => o.id === task.id);
         tasks[index] = task;
       }
       localStorage.setItem("tasks", JSON.stringify(tasks));
       return tasks;
     case types.UPDATE_STATUS_TASK:
-      index = findIndex(state, action.id);
+      index = findIndex(state, o => o.id === action.id);
       let tasksUpdate = [...state];
       if (index !== -1) {
         tasksUpdate[index] = {
@@ -41,7 +34,7 @@ const tasks = (state = initialState, action) => {
       }
       return tasksUpdate;
     case types.DELETE_TASK:
-      index = findIndex(state, action.id);
+      index = findIndex(state, o => o.id === action.id);
       let tasksDelete = [...state];
       if (index !== -1) {
         tasksDelete.splice(index, 1);

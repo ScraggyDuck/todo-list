@@ -11,6 +11,7 @@ class TaskControlSearch extends Component {
       keyword: ""
     };
   }
+
   onChange = event => {
     const target = event.target;
     const name = target.name;
