@@ -118,10 +118,12 @@ class TaskForm extends Component {
             </Form.Group>
             <div className="d-flex justify-content-center">
               <Button className="mr-3" variant="success" type="submit">
-                Lưu Lại
+                <i className="far fa-save" />
+                &nbsp;Lưu Lại
               </Button>
               <Button onClick={this.onCloseForm} variant="danger" type="reset">
-                Hủy bỏ
+                <i className="far fa-times-circle" />
+                &nbsp;Hủy bỏ
               </Button>
             </div>
           </Form>

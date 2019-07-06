@@ -6,3 +6,5 @@ export const OPEN_FORM = "OPEN_FORM";
 export const UPDATE_STATUS_TASK = "UPDATE_STATUS_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
+export const SEARCH = "SEARCH";
+export const SORT = "SORT";

@@ -51,9 +51,41 @@ class TaskList extends Component {
       });
     }
 
+    //search
+    if (this.props.keyword) {
+      tasks = tasks.filter(task => {
+        return task.name.toLowerCase().indexOf(this.props.keyword) !== -1;
+      });
+    }
+
+    //sort
+    const { sort } = this.props;
+    if (sort.by === "name") {
+      tasks.sort((a, b) => {
+        if (a.name > b.name) return sort.value;
+        else if (a.name < b.name) return -sort.value;
+        else return 0;
+      });
+    }
+    if (sort.by === "level") {
+      tasks.sort((a, b) => {
+        if (a.level > b.level) return sort.value;
+        else if (a.level < b.level) return -sort.value;
+        else return 0;
+      });
+    }
+    if (sort.by === "status") {
+      tasks.sort((a, b) => {
+        if (a.isCompleted > b.isCompleted) return -sort.value;
+        else if (a.isCompleted < b.isCompleted) return sort.value;
+        else return 0;
+      });
+    }
+
     const elmTasks = tasks.map((task, index) => (
       <TaskItem key={task.id} index={index} task={task} />
     ));
+
     return (
       <Table bordered hover>
         <thead>
@@ -111,7 +143,9 @@ class TaskList extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.tasks
+  tasks: state.tasks,
+  keyword: state.search,
+  sort: state.sort
 });
 
 export default connect(

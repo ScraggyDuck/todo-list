@@ -10,22 +10,6 @@ import { connect } from "react-redux";
 import { onToggleForm, onUpdate, onShowForm } from "./actions/index";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      filter: {
-        name: "",
-        level: -1,
-        status: -1
-      },
-      keyword: "",
-      sort: {
-        by: "name",
-        value: 1
-      }
-    };
-  }
-
   onToggleForm = () => {
     this.props.onUpdate({
       id: "",
@@ -36,81 +20,15 @@ class App extends Component {
     if (this.props.taskEditting) this.props.onShowForm();
     else this.props.onToggleForm();
   };
-
-  // onFilter = (filterName, filterLevel, filterStatus) => {
-  //   this.setState({
-  //     filter: {
-  //       name: filterName.toLowerCase(),
-  //       level: parseInt(filterLevel, 10),
-  //       status: parseInt(filterStatus, 10)
-  //     }
-  //   });
-  // };
-
-  // onSearch = keyword => {
-  //   this.setState({
-  //     keyword: keyword.toLowerCase()
-  //   });
-  // };
-
-  // onSort = sort => {
-  //   this.setState({
-  //     sort: {
-  //       by: sort.sortBy,
-  //       value: sort.sortValue
-  //     }
-  //   });
-  // };
-
   render() {
     let { isDisplayForm } = this.props;
-    // if (filter) {
-    //   if (filter.name) {
-    //     tasks = tasks.filter(task => {
-    //       return task.name.toLowerCase().indexOf(filter.name) !== -1;
-    //     });
-    //   }
-    //   if (filter.level !== -1) {
-    //     tasks = tasks.filter(task => {
-    //       return task.level === filter.level;
-    //     });
-    //   }
-    //   if (filter.status !== -1) {
-    //     tasks = tasks.filter(task => {
-    //       return task.isCompleted === (filter.status === 1 ? true : false);
-    //     });
-    //   }
-    // }
-    // if (keyword) {
-    //   tasks = tasks.filter(task => {
-    //     return task.name.toLowerCase().indexOf(keyword) !== -1;
-    //   });
-    // }
-    // if (sort.by === "name") {
-    //   tasks.sort((a, b) => {
-    //     if (a.name > b.name) return sort.value;
-    //     else if (a.name < b.name) return -sort.value;
-    //     else return 0;
-    //   });
-    // }
-    // if (sort.by === "level") {
-    //   tasks.sort((a, b) => {
-    //     if (a.level > b.level) return sort.value;
-    //     else if (a.level < b.level) return -sort.value;
-    //     else return 0;
-    //   });
-    // }
-    // if (sort.by === "status") {
-    //   tasks.sort((a, b) => {
-    //     if (a.isCompleted > b.isCompleted) return -sort.value;
-    //     else if (a.isCompleted < b.isCompleted) return sort.value;
-    //     else return 0;
-    //   });
-    // }
     return (
       <div className="App">
         <Container className="mt-3">
-          <h1 className="text-center mb-3">Quản lí công việc</h1>
+          <h1 className="text-center mb-3">
+            <i className="far fa-list-alt" />
+            &nbsp;Quản lí công việc
+          </h1>
           <Row>
             {isDisplayForm ? (
               <Col md={4}>
@@ -127,7 +45,8 @@ class App extends Component {
                   variant="primary"
                   className="d-flex mb-3"
                 >
-                  Thêm công việc
+                  <i className="far fa-plus-square" />
+                  &nbsp;Thêm công việc
                 </Button>
                 <TaskControl />
                 <TaskList />

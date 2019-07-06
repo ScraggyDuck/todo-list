@@ -47,10 +47,12 @@ class TaskItem extends Component {
         <td>
           <div className="d-flex justify-content-center">
             <Button onClick={this.onUpdate} variant="success" className="mr-3">
-              Sửa
+              <i className="fas fa-pencil-alt" />
+              &nbsp;Sửa
             </Button>
             <Button onClick={this.onDelete} variant="danger">
-              Xóa
+              <i className="fas fa-trash-alt" />
+              &nbsp;Xóa
             </Button>
           </div>
         </td>

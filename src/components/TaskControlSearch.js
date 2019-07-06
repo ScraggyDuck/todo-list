@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 
-export default class TaskControlSearch extends Component {
+import { connect } from "react-redux";
+import { onSearch } from "../actions/index";
+
+class TaskControlSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +37,8 @@ export default class TaskControlSearch extends Component {
           />
           <InputGroup.Append>
             <Button onClick={this.onSearch} variant="primary">
-              Tìm kiếm
+              Tìm kiếm&nbsp;
+              <i className="fas fa-search" />
             </Button>
           </InputGroup.Append>
         </InputGroup>
@@ -42,3 +46,12 @@ export default class TaskControlSearch extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  onSearch: keyword => dispatch(onSearch(keyword))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(TaskControlSearch);

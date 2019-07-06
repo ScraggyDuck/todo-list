@@ -35,3 +35,14 @@ export const onUpdate = task => ({
   type: types.UPDATE_TASK,
   task
 });
+
+export const onSearch = keyword => ({
+  type: types.SEARCH,
+  keyword
+});
+
+export const onSort = (sortBy, sortValue) => ({
+  type: types.SORT,
+  sortBy,
+  sortValue
+});
